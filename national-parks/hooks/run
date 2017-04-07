@@ -1,0 +1,20 @@
+#!/bin/bash
+exec 2>&1
+echo "Starting Apache Tomcat"
+
+echo "****************************************************"
+echo "NATHEN:  cfg.port = {{cfg.port}}"
+echo "NATHEN:  cfg.database.port = {{cfg.database.port}}"
+echo "NATHEN:  cfg.address = {{cfg.address}}"
+echo "****************************************************"
+
+export JAVA_HOME=$(hab pkg path core/jdk8)
+export TOMCAT_HOME="$(hab pkg path core/tomcat8)/tc"
+
+source {{pkg.svc_config_path}}/catalina-opts.conf
+echo "\$CATALINA_OPTS=$CATALINA_OPTS"
+
+cp "$(hab pkg path {{pkg.origin}}/{{pkg.name}})/{{pkg.name}}.war" "$TOMCAT_HOME/webapps/"
+
+exec ${TOMCAT_HOME}/bin/catalina.sh run
+
