@@ -1,5 +1,5 @@
+pkg_origin=learn
 pkg_name=mongodb
-pkg_origin=core
 pkg_version=3.2.10
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_description="High-performance, schema-free, document-oriented database"
