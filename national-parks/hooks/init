@@ -1,7 +1,7 @@
 #!/bin/bash
 exec 2>&1
 echo "Seeding Mongo Collection"
-MONGODB_HOME=$(hab pkg path nathenharvey/mongodb)
+MONGODB_HOME=$(hab pkg path learn/mongodb)
 
 source {{pkg.svc_config_path}}/mongoimport-opts.conf
 echo "\$MONGOIMPORT_OPTS=$MONGOIMPORT_OPTS"
