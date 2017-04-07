@@ -3,7 +3,17 @@ exec 2>&1
 echo "Seeding Mongo Collection"
 MONGODB_HOME=$(hab pkg path learn/mongodb)
 
-source {{pkg.svc_config_path}}/mongoimport-opts.conf
+{{~#if bind.database}}
+{{~#each bind.database.members}}
+
+  export MONGOIMPORT_OPTS="--host={{sys.ip}} --port={{cfg.port}}"
+
+{{~/each}}
+{{~/if}}
+
 echo "\$MONGOIMPORT_OPTS=$MONGOIMPORT_OPTS"
 
 $(hab pkg path core/mongo-tools)/bin/mongoimport --drop -d demo -c nationalparks --type json --jsonArray --file {{pkg.path}}/national-parks.json ${MONGOIMPORT_OPTS}
+
+
+
