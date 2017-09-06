@@ -1,13 +1,13 @@
 #!/bin/bash
 exec 2>&1
 echo "Seeding Mongo Collection"
-MONGODB_HOME=$(hab pkg path learn/mongodb)
 
-{{~#if bind.database}}
-{{~#each bind.database.members}}
+{{#if bind.has_database}}
+{{~#each bind.database.members as |member|}}
+{{~#if member.alive}}
 
-  export MONGOIMPORT_OPTS="--host={{sys.ip}} --port={{cfg.port}}"
-
+  export MONGOIMPORT_OPTS="--host={{member.sys.ip}} --port={{member.cfg.port}}"
+{{~/if}}
 {{~/each}}
 {{~/if}}
 
